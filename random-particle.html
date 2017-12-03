@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Randome Particle</title>
+  <style>
+    html,
+    body {
+      /* reset margin and padding for different browsers */
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      color: #515151;
+    }
+
+    #credit {
+      position: absolute;
+      bottom: 2rem;
+      left: 2rem;
+    }
+
+    a {
+      text-decoration: none;
+      color: #F07883;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="random-particle">
+  </canvas>
+  <h3 id="credit">
+    Inspired by
+    <a href="https://juejin.im/book/5a0ab8e2f265da43111fbab2/section/5a0be1335188253edc7f749a">怎么实现随机粒子</a>
+  </h3>
+  <script>
+    (function () {
+      let element = document.getElementById('random-particle');
+      let context = element.getContext('2d');
+      const WIDTH = document.documentElement.clientWidth;
+      const HEIGHT = document.documentElement.clientHeight;
+      const ITEMCOUNT = 100;
+      let particles = [];
+
+      element.width = WIDTH;
+      element.height = HEIGHT;
+
+      class RoundItem {
+        constructor(key, x, y, r = 2, context) {
+          this.key = key;
+          this.x = x;
+          this.y = y;
+          this.r = Math.random() * r + 1;
+          this.alpha = (Math.floor(Math.random() * 10) + 1) / 10;
+          this.color = `rgba(159, 159, 159, "${this.alpha}")`;
+          this.context = context;
+        }
+
+        draw() {
+          this.context.fillStyle = this.color;
+          this.shadowBlur = this.r * 2;
+          this.context.beginPath();
+          this.context.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
+          this.context.closePath();
+          this.context.fill();
+        }
+      }
+
+      function init() {
+        for (let i = 0; i < ITEMCOUNT; i++) {
+          particles.push(new RoundItem(i, Math.random() * WIDTH, Math.random() * HEIGHT, 3, context));
+          particles[i].draw();
+        }
+      }
+
+      init();
+
+    })();
+
+  </script>
+</body>
+
+</html>
