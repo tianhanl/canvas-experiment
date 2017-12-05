@@ -36,76 +36,13 @@
     Inspired by
     <a href="https://juejin.im/book/5a0ab8e2f265da43111fbab2/section/5a0be1cc6fb9a0452a3bdb0b">使你的随机粒子动起来</a>
   </h3>
+  <script src="./Particle.js"></script>
   <script>
     (function () {
       let element = document.getElementById('random-particle');
-      let context = element.getContext('2d');
       const WIDTH = document.documentElement.clientWidth;
       const HEIGHT = document.documentElement.clientHeight;
-      const ITEMCOUNT = 100;
-      let direction = 'diagnoal';
-      let particles = [];
-
-      element.width = WIDTH;
-      element.height = HEIGHT;
-
-      class RoundItem {
-        constructor(key, x, y, r = 2, context) {
-          this.key = key;
-          this.x = x;
-          this.y = y;
-          this.r = Math.random() * r + 1;
-          this.alpha = (Math.floor(Math.random() * 10) + 1) / 10;
-          this.color = `hsla(0, 0%, 62%, ${this.alpha})`;
-          this.context = context;
-        }
-
-        draw() {
-          this.context.fillStyle = this.color;
-          this.shadowBlur = this.r * 2;
-          this.context.beginPath();
-          this.context.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
-          this.context.closePath();
-          this.context.fill();
-        }
-
-        move(direction = 'vertical') {
-          switch (direction) {
-            case 'vertical':
-              this.y -= 0.15;
-              this.y = this.y <= -10 ? HEIGHT + 10 : this.y;
-              break;
-            case 'horizontal':
-              this.x -= 0.15;
-              this.x = this.x <= -10 ? WIDTH + 10 : this.x;
-              break;
-            case 'diagnoal':
-              this.y -= 0.15;
-              this.y = this.y <= -10 ? HEIGHT + 10 : this.y;
-              this.x -= 0.15;
-              this.x = this.x <= -10 ? WIDTH + 10 : this.x;
-              break;
-            default:
-          }
-          this.draw();
-        }
-      }
-      const animate = function () {
-        context.clearRect(0, 0, WIDTH, HEIGHT);
-        particles.forEach(particle => particle.move(direction));
-        requestAnimationFrame(animate);
-      }
-
-      const init = function () {
-        for (let i = 0; i < ITEMCOUNT; i++) {
-          particles.push(new RoundItem(i, Math.random() * WIDTH, Math.random() * HEIGHT, 3, context));
-          particles[i].draw();
-        }
-        animate();
-      }
-
-      init();
-
+      const manager = new ParticleManager(element, WIDTH, HEIGHT, 200, 'horizontal', .3);
     })();
 
   </script>
