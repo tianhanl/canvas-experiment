@@ -94,12 +94,12 @@ class ParticleManager {
       );
       this.particles[i].draw();
     }
-    this.animate(this);
+    this.animate = this.animate.bind(this);
+    this.animate();
   }
-
-  animate(self) {
+  animate() {
     this.context.clearRect(0, 0, this.width, this.height);
     this.particles.forEach(particle => particle.move());
-    requestAnimationFrame(this.animate.bind(this));
+    requestAnimationFrame(this.animate);
   }
 }
