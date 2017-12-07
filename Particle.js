@@ -1,3 +1,8 @@
+// directions
+const VERTICAL = 'vertical';
+const HORIZONTAL = 'horizontal';
+const DIAGONAL = 'diagonal';
+
 class Particle {
   constructor(
     key,
@@ -34,15 +39,15 @@ class Particle {
 
   move() {
     switch (this.direction) {
-      case 'vertical':
+      case VERTICAL:
         this.y -= this.stepInterval;
         this.y = this.y <= -10 ? this.height + 10 : this.y;
         break;
-      case 'horizontal':
+      case HORIZONTAL:
         this.x -= this.stepInterval;
         this.x = this.x <= -10 ? this.width + 10 : this.x;
         break;
-      case 'diagonal':
+      case DIAGONAL:
         this.y -= this.stepInterval;
         this.y = this.y <= -10 ? this.height + 10 : this.y;
         this.x -= this.stepInterval;
@@ -60,7 +65,7 @@ class ParticleManager {
     width,
     height,
     itemCount = 100,
-    direction = 'vertical',
+    direction = VERTICAL,
     stepInterval = 0.15
   ) {
     // set up context
