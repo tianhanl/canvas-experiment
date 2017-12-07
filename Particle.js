@@ -66,7 +66,8 @@ class ParticleManager {
     height,
     itemCount = 100,
     direction = VERTICAL,
-    stepInterval = 0.15
+    stepInterval = 0.15,
+    range = 0
   ) {
     // set up context
     this.element = element;
@@ -80,6 +81,7 @@ class ParticleManager {
     this.itemCount = itemCount;
     this.direction = direction;
     this.stepInterval = stepInterval;
+    this.range = range;
 
     // set up particles;
     this.particles = [];
@@ -94,7 +96,9 @@ class ParticleManager {
           this.width,
           this.height,
           this.direction,
-          this.stepInterval
+          this.range === 0
+            ? this.stepInterval
+            : this.stepInterval + Math.random() * range
         )
       );
       this.particles[i].draw();
