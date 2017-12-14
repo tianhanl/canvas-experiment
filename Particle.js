@@ -103,6 +103,7 @@ class ParticleManager {
       );
       this.particles[i].draw();
     }
+    // to make sure this function works in callback
     this.animate = this.animate.bind(this);
     this.animate();
   }

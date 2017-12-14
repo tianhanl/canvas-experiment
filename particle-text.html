@@ -30,21 +30,13 @@
 </head>
 
 <body>
-  <canvas id="random-particle">
+  <canvas id="particle">
   </canvas>
-  <h3 id="credit">
-    Inspired by
-    <a href="https://juejin.im/book/5a0ab8e2f265da43111fbab2/section/5a0be1cc6fb9a0452a3bdb0b">使你的随机粒子动起来</a>
-  </h3>
-  <script src="./Particle.js"></script>
+  <script src="./ParticleText.js"></script>
   <script>
-    (function () {
-      let element = document.getElementById('random-particle');
-      const WIDTH = document.documentElement.clientWidth;
-      const HEIGHT = document.documentElement.clientHeight;
-      const manager = new ParticleManager(element, WIDTH, HEIGHT, 200, VERTICAL, .3, .5);
-    })();
-
+    let particleText = new ParticleText('Test', 100, 'Helvetica', 'orange');
+    let container = document.getElementsByTagName('body')[0];
+    particleText.attachToElement(container);
   </script>
 </body>
 
